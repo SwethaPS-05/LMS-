@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeLeaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leave Management System</title>
+    <link rel="icon" href="https://tse1.mm.bing.net/th?id=OIP.y9Q96_RC_cTnxbj32Y4SNAAAAA&pid=Api&P=0&h=180"
+        type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="student.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <aside class="sidebar col-md-4 col-lg-2 p-0">
+                <div class="sidebar-header text-center p-3">
+                    <h2>Leave Management System</h2>
+
+                </div>
+
+                <button id="menu-icon"><span class="material-symbols-outlined">
+                        menu
+                    </span> MENU</button>
+
+                <nav class="sidebar-nav">
+
+                    <ul class="list-unstyled">
+                        <li class="active"><a href="#" id="home-id">Home</a></li>
+                        <li><a href="#" id="manage-users-id">Manage Users</a></li>
+                        <li>
+                            <a href="#" id="manage-leaves-id">Manage Leaves</a>
+                            <ul id="leaves-sublist" class="list-unstyled pl-3">
+                                <li><a href="#" id="apply-leave-id">Apply leave</a></li>
+                                <li><a href="#" id="my-leave-id">My leave</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#" id="change-password-id">Change password</a></li>
+                    </ul>
+                </nav>
+
+
+                <div class="sidebar-footer p-3">
+                    <div class="user-info d-flex align-items-center">
+                        <img src="https://www.w3schools.com/w3images/avatar6.png" alt="Avatar"
+                            class="img-fluid rounded-circle mr-2">
+                        <div>
+                            <h3>Employee Name</h3>
+                            <p>HR Specialist</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+            <main class="main-content col-md-0
+col-lg-10 p-4">
+                <section class="home" id="home-section">
+                    <div class="wrapper mx-auto">
+                        <header class="d-flex justify-content-between align-items-center">
+                            <p class="current-date"></p>
+                            <div class="icons d-flex">
+                                <span id="prev" class="material-symbols-outlined">chevron_left</span>
+                                <span id="next" class="material-symbols-outlined">chevron_right</span>
+                            </div>
+                        </header>
+                        <div class="calendar">
+                            <ul class="weeks d-flex list-unstyled">
+                                <li>Sun</li>
+                                <li>Mon</li>
+                                <li>Tue</li>
+                                <li>Wed</li>
+                                <li>Thu</li>
+                                <li>Fri</li>
+                                <li>Sat</li>
+                            </ul>
+                            <ul class="days d-flex flex-wrap list-unstyled"></ul>
+                        </div>
+                    </div>
+                </section>
+                <section class="upcoming-leaves table-responsive text-center " id="manage-users-section">
+                    <div>
+                        <h4>Manage Users</h4>
+                    </div>
+                    <br>
+                    <div id="actions">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>NAME</th>
+                                    <th>E-MAIL</th>
+                                    <th>ROLE</th>
+                                    <th>ACTION</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="user : ${users}">
+                                    <td th:text="${user.fname} + ' ' + ${user.lname}">Name</td>
+                                    <td th:text="${user.email}">Email</td>
+                                    <td th:text="${user.role}">Role</td>
+                                    <td>
+                                        <button th:onclick="'/edit/' + ${user.id}">Edit</button>
+                                        <button th:onclick="'/delete/' + ${user.id}">Delete</button>
+                                    </td>
+                                    
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="buttons">
+                            <button id="edit-user-button" class="create-leave-btn">Edit User</button>
+                        </div>
+                    </div>
+
+
+
+                    <div id="edit-user">
+
+                        <div th:if="${message}" th:text="${message}" class="alert alert-success" role="alert">
+                        </div>
+
+
+                        <form th:action="@{/register}" th:object="${user}" method="post">
+                            <table>
+
+                                <tr>
+                                    <td> <label for="First Name">First Name :</label> </td>
+                                    <td> <input placeholder="Name" type="text" name="fname" required> </td>
+                                </tr>
+
+                                <tr>
+                                    <td><label for="Last Name">Last Name :</label></td>
+                                    <td><input type="text" placeholder="initial" name="lname" required></td>
+                                </tr>
+
+                                <tr>
+                                    <td><label for="E-MAIL">E-mail :</label></td>
+                                    <td><input placeholder="E-mail" type="email" name="email" required></td>
+                                </tr>
+
+                                <tr>
+                                    <td><label for="Password">Password :</label></td>
+                                    <td><input placeholder="Password" type="password" name="password" required> </td>
+                                </tr>
+
+                                <tr>
+                                    <td><label for="role">Role:</label></td>
+                                    <td><input value="admin" name="role" type="radio" placeholder="admin">ADMIN <br>
+                                        <input value="editor" name="role" type="radio" placeholder="editor">EDITOR
+                                    </td>
+                                </tr>
+
+                            </table>
+                            <div class="buttons">
+                                <input type="submit" value="SAVE" class="create-leave-btn">
+                                <input type="submit" value="CANCEL" class="create-leave-btn">
+                                <button type="reset" id="back" class="create-leave-btn">Back</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </section>
+                <section class="upcoming-leaves table-responsive text-nowrap" id="apply-leave-section">
+                    <div class="table-responsive">
+                        <h2>Apply Leave</h2>
+                        <table>
+                            <div th:if="${message}" th:text="${message}" class="alert alert-success" role="alert">
+                            </div>
+                            <form th:action="@{/submit}" th:object="${leave}" method="post" enctype="multipart/form-data">
+                                <tr>
+                                    <td>
+                                        <label for="From Date">From Date :</label>
+                                    </td>
+                                    <td>
+                                        <input placeholder="From Date" type="date" id="from-date" name="fromdate" required />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="To Date">To Date :</label>
+                                    </td>
+                                    <td>
+                                        <input name="todate" type="date" id="to-date" placeholder="To Date" required/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="Leave Type">Leave Type :</label>
+                                    </td>
+                                    <td>
+                                        <select id="leave-type" name="leavetype" title="leavetype">
+                                            <option name="leavetype" value="sick">Sick</option>
+                                            <option name="leavetype" value="Personal">Personal</option>
+                                        </select>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="leave Reason">Leave Reason :</label>
+                                    </td>
+                                    <td>
+                                        <textarea name="leavereason" placeholder="Type Reason"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="proof">Attachments :</label>
+                                    </td>
+                                    <td>
+                                        <input type="file" name="file" placeholder="add files" required>
+                                    </td>
+                                </tr>
+                                <div class="buttons">
+                                    <button class="create-leave-btn" type="submit">Apply Leave</button>
+                                    <button class="create-leave-btn">Cancel</button>
+                                </div>
+                            </form>
+                            <br>
+                        </table>
+                        
+                    </div>
+                </section>
+                <section class="upcoming-leaves table-responsive text-center" id="my-leave-section">
+                    <div>
+                        <h2>My Leave</h2>
+                        <div>
+                            <table>
+                                <thead class="text-center">
+                                    <tr>
+                                        <th>FROM DATE</th>
+                                        <th>TO DATE</th>
+                                        <th>NO OF DAYS</th>
+                                        <th>LEAVE TYPE</th>
+                                        <th>REASON</th>
+                                        <th>STATUS</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-wrap">
+                                    <tr>
+                                        <td>03/01/2024</td>
+                                        <td>04/01/2024</td>
+                                        <td class="text-center">1</td>
+                                        <td>CASUAL LEAVE</td>
+                                        <td>Lorem, ipsum.</td>
+                                        <td><button class="accepted">ACCEPTED</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>11/01/2024</td>
+                                        <td>15/01/2024</td>
+                                        <td class="text-center">4</td>
+                                        <td>CASUAL LEAVE</td>
+                                        <td>Lorem, ipsum.</td>
+                                        <td><button class="rejected">REJECTED</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>15/01/2024</td>
+                                        <td>19/01/2024</td>
+                                        <td class="text-center">4</td>
+                                        <td>CASUAL LEAVE</td>
+                                        <td>Lorem, ipsum.</td>
+                                        <td><button class="pending">PENDING</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                <section class="upcoming-leaves" id="change-password-section">
+                    <div>
+                        <table>
+                            <h2>Change Password</h2>
+                            <tr>
+                                <td><label for="Current-password">Current-password:</label></td>
+                                <td><input type="text" placeholder="current password" required></td>
+                            </tr>
+
+                            <tr>
+                                <td><label for="New-password">New-password:</label></td>
+                                <td><input type="text" placeholder="new password" required></td>
+                            </tr>
+
+                            <tr>
+                                <td><label for="Re-Enter New password">Re-Enter New password:</label></td>
+                                <td><input type="text" placeholder="re enter new password" required></td>
+                            </tr>
+
+                        </table>
+                        <div class="buttons">
+                            <input type="submit" value="CHANGE PASSWORD" class="create-leave-btn">
+                            <input type="submit" value="CANCEL" class="create-leave-btn">
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll("main > section");
+            sections.forEach((section) => {
+                section.style.display = "none";
+            });
+            document.getElementById(sectionId).style.display = "block";
+        }
+
+        function setActiveClass(element) {
+            const navItems = document.querySelectorAll(".sidebar-nav ul li");
+            navItems.forEach((item) => {
+                item.classList.remove("active");
+            });
+            element.classList.add("active");
+        }
+
+        document
+            .getElementById("home-id")
+            .addEventListener("click", function (event) {
+                event.preventDefault();
+                showSection("home-section");
+                setActiveClass(this.parentElement);
+            });
+
+        document
+            .getElementById("manage-users-id")
+            .addEventListener("click", function (event) {
+                event.preventDefault();
+                showSection("manage-users-section");
+                setActiveClass(this.parentElement);
+            });
+
+        document
+            .getElementById("manage-leaves-id")
+            .addEventListener("click", function (event) {
+                event.preventDefault();
+                var sublist = document.getElementById("leaves-sublist");
+                if (
+                    sublist.style.display === "none" ||
+                    sublist.style.display === ""
+                ) {
+                    sublist.style.display = "block";
+                } else {
+                    sublist.style.display = "none";
+                }
+                setActiveClass(this.parentElement);
+            });
+
+        document
+            .getElementById("apply-leave-id")
+            .addEventListener("click", function (event) {
+                event.preventDefault();
+                showSection("apply-leave-section");
+                setActiveClass(this.parentElement.parentElement.parentElement);
+            });
+
+        document
+            .getElementById("my-leave-id")
+            .addEventListener("click", function (event) {
+                event.preventDefault();
+                showSection("my-leave-section");
+                setActiveClass(this.parentElement.parentElement.parentElement);
+            });
+
+        document
+            .getElementById("change-password-id")
+            .addEventListener("click", function (event) {
+                event.preventDefault();
+                showSection("change-password-section");
+                setActiveClass(this.parentElement);
+            });
+
+        showSection("home-section");
+
+        const daysTag = document.querySelector(".days"),
+            currentDate = document.querySelector(".current-date"),
+            prevNextIcon = document.querySelectorAll(".icons span");
+
+        let date = new Date(),
+            currYear = date.getFullYear(),
+            currMonth = date.getMonth();
+
+        const months = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+        ];
+
+        const renderCalendar = () => {
+            let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(),
+                lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(),
+                lastDayofMonth = new Date(
+                    currYear,
+                    currMonth,
+                    lastDateofMonth
+                ).getDay(),
+                lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate();
+            let liTag = "";
+
+            for (let i = firstDayofMonth; i > 0; i--) {
+                liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
+            }
+
+            for (let i = 1; i <= lastDateofMonth; i++) {
+                let isToday =
+                    i === date.getDate() &&
+                        currMonth === new Date().getMonth() &&
+                        currYear === new Date().getFullYear()
+                        ? "active"
+                        : "";
+                liTag += `<li class="${isToday}">${i}</li>`;
+            }
+
+            for (let i = lastDayofMonth; i < 6; i++) {
+                liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`;
+            }
+            currentDate.innerText = `${months[currMonth]} ${currYear}`;
+            daysTag.innerHTML = liTag;
+        };
+        renderCalendar();
+
+        prevNextIcon.forEach((icon) => {
+            icon.addEventListener("click", () => {
+                currMonth = icon.id === "prev" ? currMonth - 1 : currMonth + 1;
+
+                if (currMonth < 0 || currMonth > 11) {
+                    date = new Date(currYear, currMonth, new Date().getDate());
+                    currYear = date.getFullYear();
+                    currMonth = date.getMonth();
+                } else {
+                    date = new Date();
+                }
+                renderCalendar();
+            });
+        });
+
+        document.getElementById('edit-user-button').addEventListener('click', function (event) {
+            event.preventDefault();
+            var edit = document.getElementById('edit-user');
+            var action = document.getElementById('actions');
+            if (edit.style.display === 'none' || edit.style.display === '') {
+                edit.style.display = 'block';
+                action.style.display = 'none';
+            }
+            // else{
+            // edit.style.display='none';
+            // action.style.display='block';
+            // }
+            setActiveClass(this.parentElement);
+        });
+        document.getElementById('back').addEventListener('click', function (event) {
+            event.preventDefault();
+            var edit = document.getElementById('edit-user');
+            var action = document.getElementById('actions');
+            if (edit.style.display === 'block') {
+                edit.style.display = 'none';
+                action.style.display = 'block';
+            }
+            // else{
+            // edit.style.display='block';
+            // action.style.display='none';
+            // }
+            setActiveClass(this.parentElement);
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+
+            const menuIcon = document.getElementById("menu-icon");
+            const navLinks = document.querySelector(".sidebar-nav");
+
+            menuIcon.addEventListener("click", function () {
+                if (window.innerWidth <= 768) {
+                    navLinks.style.display = (navLinks.style.display === "none") ? "block" : "none";
+                }
+            });
+
+            const nav = document.querySelector("nav");
+            const navOffsetTop = nav.offsetTop;
+
+            window.addEventListener("scroll", function () {
+                if (window.scrollY > navOffsetTop) {
+                    nav.classList.add("nav-fixed");
+                } else {
+                    nav.classList.remove("nav-fixed");
+                }
+            });
+
+        });
+    </script>
+</body>
+
+</html>

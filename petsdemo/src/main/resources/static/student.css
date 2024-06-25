@@ -1,0 +1,397 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:wght@400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    background-color: #f4f7fc;
+}
+
+@media (max-width:768px) {
+    html {
+        font-size: 12px;
+        line-height: 1.5px;
+    }
+
+    .buttons {
+        padding: 1%;
+        margin: 1%;
+    }
+
+    .accepted {
+        padding: 5px 10px;
+        border-radius: 2.5px;
+    }
+
+    .rejected {
+        padding: 5px 10px;
+        border-radius: 2.5px;
+    }
+
+    .pending {
+        padding: 5px 10px;
+        border-radius: 2.5px;
+    }
+
+    .create-leave-btn {
+        padding: 5px 10px;
+        border-radius: 2.5px;
+    }
+
+    .upcoming-leaves table th,
+    .upcoming-leaves table td {
+        text-align: center;
+
+    }
+}
+
+.row {
+    height: 100%;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+}
+
+.sidebar {
+
+    background-color: #2f3b52;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+}
+
+.sidebar-header {
+    padding: 20px;
+    text-align: center;
+    background-color: #1e2a38;
+    margin-bottom: 1%;
+}
+
+.sidebar-header h2 {
+    margin: 0.5%;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    padding: 20px 0;
+}
+
+/* .sidebar-nav ul li {
+    padding: 15px 20px;
+} */
+
+.sidebar-nav ul li a {
+    color: #b0bec5;
+    text-decoration: none;
+    display: block;
+    padding: 15px;
+}
+
+.sidebar-nav ul li.active>a,
+.sidebar-nav ul li a:hover {
+    background-color: #1e2a38;
+    color: #fff;
+}
+
+.sidebar-nav ul ul {
+    display: none;
+    list-style: none;
+    padding-left: 20px;
+}
+
+.sidebar-nav ul ul li a {
+    padding: 10px 20px;
+}
+
+.sidebar-footer {
+    padding: 20px;
+    background-color: #1e2a38;
+    display: flex;
+    align-items: center;
+    margin-top: 1%;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h1 {
+    font-size: 24px;
+}
+
+.create-leave-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.leave-balance {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.leave-type {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    flex: 1;
+    margin: 0 10px;
+}
+
+.leave-type h2 {
+    margin-bottom: 10px;
+}
+
+.upcoming-leaves {
+    background-color: #fff;
+    padding: 1%;
+    border-radius: 10px;
+}
+
+.upcoming-leaves table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.upcoming-leaves table th,
+.upcoming-leaves table td {
+    padding: 1%;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: left;
+
+}
+
+.upcoming-leaves table th {
+    background-color: #f4f7fc;
+
+}
+
+/* .upcoming-leaves table tbody tr:hover {
+    background-color: #f4f7fc;
+} */
+
+.material-symbols-outlined:hover {
+    cursor: pointer;
+    color: rgb(204, 5, 5);
+}
+
+
+.buttons {
+    text-align: center;
+    padding: 2%;
+    margin: 2%;
+}
+
+.accepted {
+    background-color: rgb(74, 214, 74);
+    padding: 10px 20px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.rejected {
+    background-color: rgb(255, 76, 76);
+    padding: 10px 20px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.pending {
+    background-color: rgb(86, 86, 242);
+    padding: 10px 20px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.wrapper {
+    margin-top: 8%;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    width: 90%;
+}
+
+.wrapper header {
+    display: flex;
+    align-items: center;
+    padding: 25px 30px 10px;
+    justify-content: space-between;
+}
+
+header .icons {
+    display: flex;
+}
+
+header .icons span {
+    height: 38px;
+    width: 38px;
+    margin: 0 1px;
+    cursor: pointer;
+    color: #878787;
+    text-align: center;
+    line-height: 38px;
+    font-size: 1.9rem;
+    /* user-select: none; */
+    border-radius: 50%;
+}
+
+.icons span:last-child {
+    margin-right: -10px;
+}
+
+header .icons span:hover {
+    background: #f2f2f2;
+}
+
+header .current-date {
+    font-size: 1.45rem;
+    font-weight: 500;
+}
+
+.calendar {
+    padding: 2%;
+}
+
+.calendar ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    text-align: center;
+}
+
+.calendar .days {
+    margin-bottom: 20px;
+}
+
+.calendar li {
+    color: #333;
+    width: calc(100% / 7);
+    font-size: 1.07rem;
+}
+
+.calendar .weeks li {
+    font-weight: 500;
+    cursor: default;
+}
+
+.calendar .days li {
+    z-index: 1;
+    cursor: pointer;
+    position: relative;
+    margin-top: 30px;
+}
+
+.days li.inactive {
+    color: #aaa;
+}
+
+.days li.active {
+    color: #fff;
+}
+
+.days li::before {
+    position: absolute;
+    content: "";
+    left: 50%;
+    top: 50%;
+    height: 40px;
+    width: 40px;
+    z-index: -1;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.days li.active::before {
+    background: #9B59B6;
+}
+
+.days li:not(.active):hover::before {
+    background: #f2f2f2;
+}
+
+#edit-user {
+    display: none;
+}
+
+#actions {
+    display: block;
+}
+
+#menu-icon {
+    display: block;
+}
+
+@media only screen and (min-width: 769px) {
+    #menu-icon {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 769px) {
+    #menu-icon {
+        background-color: #1e2a38;
+        padding: 10px 30px;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width:25%;
+        margin-left: 0;
+    }
+}
+
+@media only screen and (max-width: 769px) {
+    .sidebar-nav.nav-links {
+        display: none;
+        flex-direction: column;
+        text-align: left;
+    }
+
+    .sidebar-nav a {
+        text-align: left;
+        color: white;
+        display: block;
+        width: 75%;
+        box-sizing: border-box;
+    }
+}
