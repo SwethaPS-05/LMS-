@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leave Management System</title>
+    <link rel="icon" href="https://tse1.mm.bing.net/th?id=OIP.y9Q96_RC_cTnxbj32Y4SNAAAAA&pid=Api&P=0&h=180" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" th:href="@{/css/student.css}" /> -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #2C2E43;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding: 20px;
+        }
+
+        .logo {
+            text-align: center;
+        }
+
+        .logo h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .nav {
+            flex: 1;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 15px;
+            color: white;
+            text-decoration: none;
+            margin: 5px 0;
+            border-radius: 4px;
+            text-align: left;
+        }
+
+        .nav-item.active,
+        .nav-item:hover {
+            background-color: #3B3E5B;
+        }
+
+        .profile {
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .leave-summary {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .leave-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            margin: 0 10px;
+            text-align: center;
+        }
+
+        .leave-card h2 {
+            margin: 0 0 10px;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .leave-card p {
+            margin: 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .leave-history {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .leave-history h2 {
+            margin: 0 0 20px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background-color: #f4f4f4;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .tab.active {
+            background-color: #2C2E43;
+            color: white;
+        }
+
+        .leave-record {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .leave-item {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 5px solid transparent;
+        }
+
+        .leave-item.approved {
+            border-left-color: #28a745;
+        }
+
+        .leave-item.rejected {
+            border-left-color: #dc3545;
+        }
+
+        .leave-item.pending {
+            border-left-color: #6c757d;
+        }
+
+        .leave-item h3 {
+            margin: 0 0 10px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .leave-item p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .profile-img {
+            width: 90px;
+            height: 90px;
+            border-radius: 60%;
+            margin-bottom: 10px;
+            object-fit: cover;
+        }
+
+        /* Styles for the edit user form */
+        #edit-user {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: auto;
+        }
+
+        #edit-user h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #edit-user form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #edit-user form label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        #edit-user form input {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        #edit-user form input:focus {
+            border-color: #007BFF;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .create-leave-btn {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .create-leave-btn:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+
+        .create-leave-btn + .create-leave-btn {
+            margin-left: 10px;
+        }
+        #manage-users-section{
+            margin-top: 5%;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="upcoming-leaves table-responsive text-center" id="manage-users-section">
+        <div>
+            <h4>Manage Users</h4>
+        </div>
+        <br>
+
+        <div id="edit-user">
+            <h1>Edit User</h1>
+            <form th:action="@{/update}" th:object="${user}" method="post" class="edit-form">
+                <input type="hidden" th:field="*{id}" />
+
+                <table class="table">
+                    <tr>
+                        <td><label for="fname">First Name:</label></td>
+                        <td><input id="fname" type="text" th:field="*{fname}" placeholder="Enter first name" /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="lname">Last Name:</label></td>
+                        <td><input id="lname" type="text" th:field="*{lname}" placeholder="Enter last name" /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="email">Email:</label></td>
+                        <td><input id="email" type="text" th:field="*{email}" placeholder="Enter email" /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="role">Role:</label></td>
+                        <td><input id="role" type="text" th:field="*{role}" placeholder="Enter role" /></td>
+                    </tr>
+                </table>
+
+                <div class="buttons">
+                    <input type="submit" value="SAVE" class="create-leave-btn">
+                    <a href="/users" class="create-leave-btn">Back</a>
+                    <a href="/users" class="create-leave-btn"><button type="reset" id="back">Back</button></a>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+
+</html>

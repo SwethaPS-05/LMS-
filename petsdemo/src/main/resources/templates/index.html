@@ -19,30 +19,22 @@
             <aside class="sidebar col-md-4 col-lg-2 p-0">
                 <div class="sidebar-header text-center p-3">
                     <h2>Leave Management System</h2>
-
                 </div>
-
-                <button id="menu-icon"><span class="material-symbols-outlined">
-                        menu
-                    </span> MENU</button>
-
+                <button id="menu-icon"><span class="material-symbols-outlined">menu</span> MENU</button>
                 <nav class="sidebar-nav">
-
                     <ul class="list-unstyled">
-                        <li class="active"><a href="#" id="home-id">Home</a></li>
-                        <li><a href="#" id="manage-users-id">Manage Users</a></li>
+                        <li class="active"><a href="http://localhost:8080/users" id="home-id">Home</a></li>
+                        <li><a href="http://localhost:8080/users" id="manage-users-id">Manage Users</a></li>
                         <li>
-                            <a href="#" id="manage-leaves-id">Manage Leaves</a>
+                            <a href="http://localhost:8080/leaves" id="manage-leaves-id">Manage Leaves</a>
                             <ul id="leaves-sublist" class="list-unstyled pl-3">
-                                <li><a href="#" id="apply-leave-id">Apply leave</a></li>
-                                <li><a href="#" id="my-leave-id">My leave</a></li>
+                                <li><a href="http://localhost:8080/leaves" id="apply-leave-id">Apply leave</a></li>
+                                <li><a href="http://localhost:8080/leaves" id="my-leave-id">My leave</a></li>
                             </ul>
                         </li>
                         <li><a href="#" id="change-password-id">Change password</a></li>
                     </ul>
                 </nav>
-
-
                 <div class="sidebar-footer p-3">
                     <div class="user-info d-flex align-items-center">
                         <img src="https://www.w3schools.com/w3images/avatar6.png" alt="Avatar"
@@ -100,15 +92,16 @@ col-lg-10 p-4">
                                     <td th:text="${user.email}">Email</td>
                                     <td th:text="${user.role}">Role</td>
                                     <td>
-                                        <button th:onclick="'/edit/' + ${user.id}">Edit</button>
-                                        <button th:onclick="'/delete/' + ${user.id}">Delete</button>
+                                        <a th:href="@{'/edit/' + ${user.id}}"><button class="create-leave-btn">Edit</button></a>
+                                        <a th:href="@{'/delete/' + ${user.id}}"><button class="create-leave-btn">Delete</button></a>
                                     </td>
-                                    
+
                                 </tr>
+                                <!-- ${users} -->
                             </tbody>
                         </table>
                         <div class="buttons">
-                            <button id="edit-user-button" class="create-leave-btn">Edit User</button>
+                            <button id="edit-user-button" class="create-leave-btn">Add User</button>
                         </div>
                     </div>
 
@@ -158,6 +151,7 @@ col-lg-10 p-4">
                             </div>
                         </form>
 
+
                     </div>
                 </section>
                 <section class="upcoming-leaves table-responsive text-nowrap" id="apply-leave-section">
@@ -166,13 +160,15 @@ col-lg-10 p-4">
                         <table>
                             <div th:if="${message}" th:text="${message}" class="alert alert-success" role="alert">
                             </div>
-                            <form th:action="@{/submit}" th:object="${leave}" method="post" enctype="multipart/form-data">
+                            <form th:action="@{/submit}" th:object="${leave}" method="post"
+                                enctype="multipart/form-data">
                                 <tr>
                                     <td>
                                         <label for="From Date">From Date :</label>
                                     </td>
                                     <td>
-                                        <input placeholder="From Date" type="date" id="from-date" name="fromdate" required />
+                                        <input placeholder="From Date" type="date" id="from-date" name="fromdate"
+                                            required />
                                     </td>
                                 </tr>
                                 <tr>
@@ -180,7 +176,7 @@ col-lg-10 p-4">
                                         <label for="To Date">To Date :</label>
                                     </td>
                                     <td>
-                                        <input name="todate" type="date" id="to-date" placeholder="To Date" required/>
+                                        <input name="todate" type="date" id="to-date" placeholder="To Date" required />
                                     </td>
                                 </tr>
                                 <tr>
@@ -218,7 +214,7 @@ col-lg-10 p-4">
                             </form>
                             <br>
                         </table>
-                        
+
                     </div>
                 </section>
                 <section class="upcoming-leaves table-responsive text-center" id="my-leave-section">
@@ -230,25 +226,21 @@ col-lg-10 p-4">
                                     <tr>
                                         <th>FROM DATE</th>
                                         <th>TO DATE</th>
-                                        <th>NO OF DAYS</th>
                                         <th>LEAVE TYPE</th>
                                         <th>REASON</th>
-                                        <th>STATUS</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr th:each="leave : ${leaves}">
                                         <td th:text="${leave.fromdate}">From Date</td>
                                         <td th:text="${leave.todate}">To Date</td>
-                                        <td th:text="${leave.leavetype}">Leave Type</td>
+                                        <td th:text="${leave.leavetype}">leave Type</td>
                                         <td th:text="${leave.leavereason}">Reason</td>
-                                        <td>
-                                            <button th:onclick="'/edit/' + ${leave.id}">Edit</button>
-                                            <button th:onclick="'/delete/' + ${leave.id}">Delete</button>
-                                        </td>
-                                        
+                                       
                                     </tr>
+                                    <!-- ${users} -->
                                 </tbody>
+
                             </table>
                         </div>
                     </div>
