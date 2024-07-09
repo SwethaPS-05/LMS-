@@ -5,5 +5,6 @@ import java.util.List;
 public interface UserService {
 
     List<Userdtls> getAllUsers();
+    List<Userleaves> getAllUserleaves();
 
 }

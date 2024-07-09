@@ -7,13 +7,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService{
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final UserleavesRepository userleavesRepository;
 
     
 
-    public UserServiceImpl(UserRepository userRepository) {
-        super();
+    public UserServiceImpl(UserRepository userRepository,UserleavesRepository userleavesRepository) {
         this.userRepository = userRepository;
+        this.userleavesRepository = userleavesRepository;
     }
 
 
@@ -21,6 +22,11 @@ public class UserServiceImpl implements UserService{
     @Override
     public List<Userdtls> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public List<Userleaves> getAllUserleaves(){
+        return userleavesRepository.findAll();
     }
 
 }

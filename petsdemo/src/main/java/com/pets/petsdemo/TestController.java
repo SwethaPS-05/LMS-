@@ -4,6 +4,7 @@ package com.pets.petsdemo;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 import java.nio.file.Path;
 // import java.util.List;
 
@@ -36,7 +37,16 @@ public class TestController {
     //handler method
     @GetMapping("/users")
     public String listUsers(Model model){
-        model.addAttribute("users",userService.getAllUsers());
+        List<Userdtls> users = userService.getAllUsers();
+        model.addAttribute("users",users);
+        return "index";
+
+    }
+
+    @GetMapping("/leaves")
+    public String listLeaves(Model model){
+        List<Userleaves> leaves = userService.getAllUserleaves();
+        model.addAttribute("leaves",leaves);
         return "index";
 
     }
@@ -56,7 +66,7 @@ public class TestController {
         session.setAttribute("message", "User Registered Successfully...");
         model.addAttribute("message", "User Registered Successfully...");
 
-        return "redirect:http://localhost:8080/test";
+        return "redirect:http://localhost:8080/users";
     }
 
     @PostMapping("/submit")
@@ -81,7 +91,7 @@ public class TestController {
 
         session.setAttribute("message", "User Leave Registered Successfully...");
         model.addAttribute("message", "User Leave Registered Successfully...");
-        return "redirect:http://localhost:8080/test";
+        return "redirect:http://localhost:8080/leaves";
     }
 
     

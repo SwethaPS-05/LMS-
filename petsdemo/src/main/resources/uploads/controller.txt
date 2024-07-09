@@ -1,0 +1,12 @@
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+private static final Logger logger = LoggerFactory.getLogger(TestController.class);
+
+@GetMapping("/users")
+public String listUsers(Model model) {
+    List<Userdtls> users = userService.getAllUsers();
+    logger.info("Fetched Users: " + users);
+    model.addAttribute("users", users);
+    return "index";
+}
